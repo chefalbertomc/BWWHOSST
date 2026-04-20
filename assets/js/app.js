@@ -375,25 +375,7 @@ function renderHostessDashboard() {
       <button onclick="handleLogout()" class="text-xs bg-gray-800 text-gray-400 px-3 py-1 rounded border border-gray-700">CERRAR SESIÓN</button>
     </header>
 
-    <!--Stat Bar-->
-    <div class="grid grid-cols-4 gap-2 p-2 relative z-30" style="background-color: #000000;">
-       <div onclick="switchHostessTab('checkin')" class="bg-gray-900 border border-gray-800 p-2 rounded text-center cursor-pointer hover:bg-gray-800">
-          <div class="text-lg font-black text-white">📋</div>
-          <div class="text-[10px] text-gray-500 font-bold uppercase">Check-In</div>
-       </div>
-       <div onclick="switchHostessTab('tables')" class="bg-gray-900 border border-gray-800 p-2 rounded text-center cursor-pointer hover:bg-gray-800">
-          <div class="text-lg font-black text-yellow-500">${activeVisits.length}</div>
-          <div class="text-[10px] text-gray-500 font-bold uppercase">Mesas</div>
-       </div>
-       <div onclick="switchHostessTab('waitlist')" class="bg-gray-900 border border-gray-800 p-2 rounded text-center cursor-pointer hover:bg-gray-800">
-          <div class="text-lg font-black text-blue-500">${waitlist.length}</div>
-          <div class="text-[10px] text-gray-500 font-bold uppercase">Espera</div>
-       </div>
-       <div onclick="switchHostessTab('reservations')" class="bg-gray-900 border border-gray-800 p-2 rounded text-center cursor-pointer hover:bg-gray-800">
-          <div class="text-lg font-black text-purple-500">${reservations.length}</div>
-          <div class="text-[10px] text-gray-500 font-bold uppercase">Reservas</div>
-       </div>
-    </div>
+
     
     <!--Tab Content: Check - In(Default)-- >
       <div id="content-checkin" class="tab-content pb-24">
@@ -711,25 +693,47 @@ function renderHostessDashboard() {
             </div>
 
             <!-- BOTTOM NAVIGATION BAR -->
-            <nav class="bottom-nav">
-              <button onclick="switchHostessTab('checkin')" id="tab-checkin" class="bottom-nav-item active" style="position: relative;">
-                <span class="bottom-nav-icon">📋</span>
-                <span class="bottom-nav-label">Check-In</span>
+            <nav style="
+              position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+              background: #000;
+              border-top: 1px solid #222;
+              display: flex;
+              height: 58px;
+              padding-bottom: env(safe-area-inset-bottom, 0px);
+            ">
+              <button onclick="switchHostessTab('checkin')" id="tab-checkin"
+                style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+                       background:none; border:none; border-top: 2px solid #fff; cursor:pointer;
+                       padding: 6px 0 4px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12l2 2 4-4"/></svg>
+                <span style="font-size:9px; font-weight:700; letter-spacing:0.1em; color:#fff; font-family:'Inter',sans-serif; text-transform:uppercase;">Check-In</span>
               </button>
-              <button onclick="switchHostessTab('tables')" id="tab-tables" class="bottom-nav-item" style="position: relative;">
-                <span class="bottom-nav-icon">🍽️</span>
-                <span class="bottom-nav-label">Mesas</span>
-                ${activeVisits.length > 0 ? `<span class="bottom-nav-badge">${activeVisits.length}</span>` : ''}
+
+              <button onclick="switchHostessTab('tables')" id="tab-tables"
+                style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+                       background:none; border:none; border-top: 2px solid transparent; cursor:pointer;
+                       padding: 6px 0 4px; position:relative;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M8 6V4m8 2V4M3 10h18"/></svg>
+                <span style="font-size:9px; font-weight:700; letter-spacing:0.1em; color:#555; font-family:'Inter',sans-serif; text-transform:uppercase;">Mesas</span>
+                ${activeVisits.length > 0 ? `<span style="position:absolute;top:6px;right:calc(50% - 16px);background:#fff;color:#000;font-size:9px;font-weight:900;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;">${activeVisits.length}</span>` : ''}
               </button>
-              <button onclick="switchHostessTab('waitlist')" id="tab-waitlist" class="bottom-nav-item" style="position: relative;">
-                <span class="bottom-nav-icon">⏱️</span>
-                <span class="bottom-nav-label">Espera</span>
-                ${waitlist.length > 0 ? `<span class="bottom-nav-badge">${waitlist.length}</span>` : ''}
+
+              <button onclick="switchHostessTab('waitlist')" id="tab-waitlist"
+                style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+                       background:none; border:none; border-top: 2px solid transparent; cursor:pointer;
+                       padding: 6px 0 4px; position:relative;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+                <span style="font-size:9px; font-weight:700; letter-spacing:0.1em; color:#555; font-family:'Inter',sans-serif; text-transform:uppercase;">Espera</span>
+                ${waitlist.length > 0 ? `<span style="position:absolute;top:6px;right:calc(50% - 16px);background:#fff;color:#000;font-size:9px;font-weight:900;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;">${waitlist.length}</span>` : ''}
               </button>
-              <button onclick="switchHostessTab('reservations')" id="tab-reservations" class="bottom-nav-item" style="position: relative;">
-                <span class="bottom-nav-icon">📅</span>
-                <span class="bottom-nav-label">Reservas</span>
-                ${reservations.length > 0 ? `<span class="bottom-nav-badge">${reservations.length}</span>` : ''}
+
+              <button onclick="switchHostessTab('reservations')" id="tab-reservations"
+                style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+                       background:none; border:none; border-top: 2px solid transparent; cursor:pointer;
+                       padding: 6px 0 4px; position:relative;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                <span style="font-size:9px; font-weight:700; letter-spacing:0.1em; color:#555; font-family:'Inter',sans-serif; text-transform:uppercase;">Reservas</span>
+                ${reservations.length > 0 ? `<span style="position:absolute;top:6px;right:calc(50% - 16px);background:#fff;color:#000;font-size:9px;font-weight:900;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;">${reservations.length}</span>` : ''}
               </button>
             </nav>
 
@@ -745,19 +749,34 @@ function renderHostessDashboard() {
 }
 
 function switchHostessTab(tabName) {
-  // Hide all tab content
+  // Ocultar todos los tabs
   document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
 
-  // Remove active from all bottom nav items
-  document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
-
-  // Show selected tab content
+  // Mostrar el tab seleccionado
   const contentEl = document.getElementById(`content-${tabName}`);
   if (contentEl) contentEl.classList.remove('hidden');
 
-  // Activate bottom nav item
-  const tabEl = document.getElementById(`tab-${tabName}`);
-  if (tabEl) tabEl.classList.add('active');
+  // Reset todos los botones del nav a estado inactivo
+  ['checkin','tables','waitlist','reservations'].forEach(t => {
+    const btn = document.getElementById(`tab-${t}`);
+    if (!btn) return;
+    btn.style.borderTop = '2px solid transparent';
+    // Cambiar color de SVG e ícono a gris
+    const svg = btn.querySelector('svg');
+    const label = btn.querySelector('span');
+    if (svg) svg.setAttribute('stroke', '#555');
+    if (label) label.style.color = '#555';
+  });
+
+  // Activar tab seleccionado
+  const activeBtn = document.getElementById(`tab-${tabName}`);
+  if (activeBtn) {
+    activeBtn.style.borderTop = '2px solid #fff';
+    const svg = activeBtn.querySelector('svg');
+    const label = activeBtn.querySelector('span');
+    if (svg) svg.setAttribute('stroke', '#fff');
+    if (label) label.style.color = '#fff';
+  }
 }
 
 // Filtrar mesas por mesero
