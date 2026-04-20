@@ -1,0 +1,40 @@
+:root {
+  /* Brand Colors */
+  --color-bww-yellow: #FFD200;
+  --color-bww-black: #000000;
+  --color-bww-white: #FFFFFF;
+  --color-bww-gray: #AAAAA9;
+
+  /* UI Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-glass: #1f1f1f;
+  --text-primary: #FFFFFF;
+  --text-secondary: #AAAAA9;
+  --text-accent: #FFD200;
+
+  /* Status Colors */
+  --success: #2ecc71;
+  --warning: #f1c40f;
+  --danger: #e74c3c;
+
+  /* Typography */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Borders */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
