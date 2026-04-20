@@ -457,20 +457,15 @@ const INITIAL_DATA = {
         { id: 'ha1', username: 'hossalamos', password: '123', role: 'hostess', name: 'Hostess Álamos', branchId: 'alamos' },
         { id: 'hp1', username: 'hosspaseo', password: '123', role: 'hostess', name: 'Hostess Paseo', branchId: 'paseo' },
 
-        // JURIQUILLA - Meseros (13): 8 servers, 3 barra, 2 caja
+        // JURIQUILLA - Meseros activos
         { id: 'wj1', username: '1060', password: '1977', role: 'waiter', name: 'Alejandro Ortiz Martínez', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj2', username: '1604', password: 'oneway91', role: 'waiter', name: 'Mario Esperanza González', position: 'SERVER', branchId: 'juriquilla' },
         { id: 'wj3', username: '1033', password: '63313', role: 'waiter', name: 'Santiago Pacheco Ferreiro', position: 'SERVER', branchId: 'juriquilla' },
         { id: 'wj4', username: 'jessica.ortiz', password: '123', role: 'waiter', name: 'Jessica Ortiz Hernández', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj5', username: '10586', password: '4578', role: 'waiter', name: 'Anahí Briones Rodriguez', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj6', username: '10570', password: '1302', role: 'waiter', name: 'Jekob Guerrero Barron', position: 'SERVER', branchId: 'juriquilla' },
         { id: 'wj7', username: '10421', password: '1170', role: 'waiter', name: 'Isaac Bravo Olvera', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj8', username: 'angel.vega', password: '123', role: 'waiter', name: 'Angel Vega Bautista', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj9_barra', username: 'barra', password: '031', role: 'waiter', name: 'Barra Juriquilla', position: 'BARRA', branchId: 'juriquilla' },
-        { id: 'wj11', username: 'mario.lobera', password: '123', role: 'waiter', name: 'Mario Lobera Huerta', position: 'BARRA', branchId: 'juriquilla' },
-        { id: 'wj12', username: 'jaime.vazquez', password: '123', role: 'waiter', name: 'Jaime Vazquez Maldonado', position: 'CAJA', branchId: 'juriquilla' },
-        { id: 'wj13', username: 'brenda.cruz', password: '123', role: 'waiter', name: 'Brenda Cruz Rocio', position: 'CAJA', branchId: 'juriquilla' },
-        { id: 'wj14', username: '10780', password: '12345', role: 'waiter', name: 'Samantha Mesera', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_axel', username: 'axel', password: '123', role: 'waiter', name: 'Axel Gutiérrez', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_andres', username: 'andres', password: '123', role: 'waiter', name: 'Andrés Ayala', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_octavio', username: 'octavio', password: '123', role: 'waiter', name: 'Octavio Becerra', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj9_barra', username: 'barra', password: '031', role: 'waiter', name: 'Barra', position: 'BARRA', branchId: 'juriquilla' },
 
         // ALAMOS - Meseros (11): 9 servers, 2 barra
         { id: 'wa1', username: 'veronica.camacho', password: '123', role: 'waiter', name: 'Verónica Camacho de Santiago', position: 'SERVER', branchId: 'alamos' },
@@ -748,7 +743,7 @@ class Store {
 
     // --- DATA VERSION ---
     // Increment this to force a reset of localStorage on all devices
-    static DATA_VERSION = 6;
+    static DATA_VERSION = 7;
 
     _load() {
         const stored = localStorage.getItem(STORE_KEY);
