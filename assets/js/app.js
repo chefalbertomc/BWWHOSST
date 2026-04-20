@@ -6924,9 +6924,6 @@ window.renderManagerSportsCRMTab = function (container) {
       const cTeamNorm = normalizeString(rawTeam);
       let fanOf = 'NEUTRAL / OTRO EQUIPO';
 
-// ===== SECCIÓN 10: SPORTS CRM + UTILITIES =====
-      let fanOf = 'NEUTRAL / OTRO EQUIPO';
-
       if (cTeamNorm && gameParts.length > 1) {
         for (let p of gameParts) {
           const pNorm = normalizeString(p);
