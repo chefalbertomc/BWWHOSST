@@ -349,6 +349,45 @@ function selectBranch(id, name) {
 }
 
 // ------ HOSTESS ------
+window.MAP_CONFIG = {
+  zones: [
+    {
+      id: 'z-left',
+      name: 'Zona Izquierda (400s)',
+      tables: [
+        { id: '411', cap: 4 }, { id: '412', cap: 4 }, { id: '413', cap: 3 }, { id: '414', cap: 4 }, { id: '415', cap: 4 }, { id: '416', cap: 4 }, { id: '417', cap: 4 },
+        { id: '421', cap: 4 }, { id: '422', cap: 4 }, { id: '423', cap: 3 }, { id: '424', cap: 4 }, { id: '425', cap: 4 }, { id: '426', cap: 4 }
+      ]
+    },
+    {
+      id: 'z-top-right',
+      name: 'Arriba Centro y Derecha (200s)',
+      tables: [
+        { id: '211', cap: 3 }, { id: '212', cap: 6 }, { id: '213', cap: 6 }, { id: '214', cap: 6 },
+        { id: '221', cap: 4 }, { id: '222', cap: 4 }, { id: '223', cap: 4 }, { id: '224', cap: 4 }, { id: '225', cap: 4 },
+        { id: '241', cap: 4 }, { id: '242', cap: 4 }, { id: '243', cap: 3 }, { id: '244', cap: 4 }, { id: '245', cap: 4 },
+        { id: '251', cap: 4 }, { id: '252', cap: 4 }, { id: '253', cap: 4 }, { id: '254', cap: 4 }, { id: '255', cap: 4 }
+      ]
+    },
+    {
+      id: 'z-bottom',
+      name: 'Centro y Abajo (100s, 30s)',
+      tables: [
+        { id: '111', cap: 6 }, { id: '112', cap: 6 }, { id: '113', cap: 6 }, { id: '114', cap: 6 },
+        { id: '121', cap: 3 }, { id: '122', cap: 4 }, { id: '123', cap: 4 }, { id: '124', cap: 3 },
+        { id: '131', cap: 7 }, { id: '133', cap: 10 }, { id: '135', cap: 7 },
+        { id: '132', cap: 8 }, { id: '134', cap: 8 },
+        { id: '32', cap: 3 }, { id: '33', cap: 3 },
+        { id: '141', cap: 3 }, { id: '142', cap: 4 }, { id: '143', cap: 4 }, { id: '144', cap: 2 },
+        { id: '151', cap: 6 }, { id: '152', cap: 6 }, { id: '153', cap: 6 }
+      ]
+    }
+  ]
+};
+window.calculateTotalChairs = function() {
+  return window.MAP_CONFIG.zones.reduce((sum, z) => sum + z.tables.reduce((s, t) => s + t.cap, 0), 0);
+};
+
 function renderHostessDashboard() {
   appContainer.innerHTML = '';
 
@@ -359,9 +398,7 @@ function renderHostessDashboard() {
   const reservations = window.db.getReservations ? window.db.getReservations() : [];
 
   // Calculate stats
-  // const totalCapacity = 40; 
-  // Let's count capacity dynamically if possible or static
-  const totalCapacity = 40;
+  const totalCapacity = window.calculateTotalChairs();
   const currentCount = activeVisits.reduce((sum, v) => sum + parseInt(v.pax || 0), 0);
 
   const div = document.createElement('div');
@@ -747,6 +784,10 @@ function renderHostessDashboard() {
   // Add class for bottom nav padding
   div.className = 'p-4 max-w-6xl mx-auto has-bottom-nav';
   appContainer.appendChild(div);
+  
+  if (window.renderRestaurantMap) {
+    window.renderRestaurantMap();
+  }
 }
 
 function switchHostessTab(tabName) {
@@ -758,7 +799,7 @@ function switchHostessTab(tabName) {
   if (contentEl) contentEl.classList.remove('hidden');
 
   // Reset todos los botones del nav a estado inactivo
-  ['checkin','tables','waitlist','reservations'].forEach(t => {
+  ['checkin','tables','map','waitlist','reservations'].forEach(t => {
     const btn = document.getElementById(`tab-${t}`);
     if (!btn) return;
     btn.style.borderTop = '2px solid transparent';
@@ -5237,7 +5278,7 @@ window.renderHostessDashboard = function () {
   const reservations = window.db.getReservations ? window.db.getReservations() : [];
 
   // Calculate stats
-  const totalCapacity = 40;
+  const totalCapacity = window.calculateTotalChairs();
   const currentCount = activeVisits.reduce((sum, v) => sum + parseInt(v.pax || 0), 0);
 
   const div = document.createElement('div');
@@ -5558,6 +5599,23 @@ window.renderHostessDashboard = function () {
         </div>
       </div>
       
+      <!-- Tab Content: Map -->
+      <div id="content-map" class="tab-content hidden pb-24">
+        <div class="card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-black text-white italic tracking-tighter">MAPA DE MESAS</h2>
+                <div class="text-right">
+                  <div class="text-yellow-500 font-bold text-xl leading-none" id="map-chairs-available">-- / --</div>
+                  <div class="text-[10px] text-gray-400 uppercase tracking-widest">Sillas Disp.</div>
+                </div>
+            </div>
+            
+            <div id="restaurant-map-container" class="w-full overflow-x-auto bg-black p-4 rounded-xl border border-gray-800">
+                <!-- Map rendered here -->
+            </div>
+        </div>
+      </div>
+
      <!-- BOTTOM NAVIGATION BAR -->
      <nav style="
        position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
@@ -5579,6 +5637,12 @@ window.renderHostessDashboard = function () {
          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M8 6V4m8 2V4M3 10h18"/></svg>
          <span style="font-size:9px; font-weight:700; letter-spacing:0.1em; color:#555; font-family:'Inter',sans-serif; text-transform:uppercase;">Mesas</span>
          ${activeVisits.length > 0 ? `<span style="position:absolute;top:6px;right:calc(50% - 16px);background:#fff;color:#000;font-size:9px;font-weight:900;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;">` + activeVisits.length + `</span>` : ''}
+       </button>
+       <button onclick="switchHostessTab('map')" id="tab-map"
+         style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+                background:none; border:none; border-top: 2px solid transparent; cursor:pointer; padding: 6px 0 4px; position:relative;">
+         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+         <span style="font-size:9px; font-weight:700; letter-spacing:0.1em; color:#555; font-family:'Inter',sans-serif; text-transform:uppercase;">Mapa</span>
        </button>
        <button onclick="switchHostessTab('waitlist')" id="tab-waitlist"
          style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
@@ -7128,6 +7192,75 @@ window.renderManagerSportsCRMTab = function (container) {
   `;
 };
 
+window.renderRestaurantMap = function() {
+  const container = document.getElementById('restaurant-map-container');
+  if (!container) return;
+
+  const activeVisits = window.db.getVisits().filter(v => ['seated', 'active'].includes(v.status));
+  
+  let occupiedChairs = 0;
+  let totalChairs = window.calculateTotalChairs();
+  
+  let html = `<div style="display: flex; gap: 15px; min-width: 900px; flex-wrap: nowrap;">`;
+  
+  window.MAP_CONFIG.zones.forEach(zone => {
+    html += `<div style="background: #0a0a0a; padding: 15px; border-radius: 12px; border: 1px solid #333; flex: 1; min-width: 200px;">`;
+    html += `<h3 style="color: #888; font-size: 11px; margin-bottom: 12px; text-transform: uppercase; text-align: center; letter-spacing: 1px;">${zone.name}</h3>`;
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 8px;">`;
+    
+    zone.tables.forEach(table => {
+      const visit = activeVisits.find(v => String(v.table) === String(table.id));
+      
+      let isOccupied = !!visit;
+      let pax = visit ? parseInt(visit.pax || 0) : 0;
+      if (isOccupied) {
+        occupiedChairs += pax;
+      }
+      
+      const bgColor = isOccupied ? 'bg-red-900/40' : 'bg-green-900/40';
+      const borderColor = isOccupied ? 'border-red-500' : 'border-green-500';
+      const textColor = isOccupied ? 'text-red-400' : 'text-green-400';
+      const statusText = isOccupied ? `${pax}/${table.cap}` : `${table.cap} lbrs`;
+      
+      html += `
+        <div class="${bgColor} ${borderColor} border-2 rounded-lg p-2 text-center cursor-pointer transition-transform hover:scale-105 shadow-sm"
+             onclick="handleMapTableClick('${table.id}')">
+          <div style="font-size: 15px; font-weight: 900; color: #fff; line-height: 1;">${table.id}</div>
+          <div class="${textColor}" style="font-size: 10px; font-weight: bold; margin-top: 4px;">${statusText}</div>
+        </div>
+      `;
+    });
+    
+    html += `</div></div>`;
+  });
+  
+  html += `</div>`;
+  container.innerHTML = html;
+  
+  const chairsAvailEl = document.getElementById('map-chairs-available');
+  if (chairsAvailEl) {
+    chairsAvailEl.innerText = `${totalChairs - occupiedChairs} / ${totalChairs}`;
+  }
+};
+
+window.handleMapTableClick = function(tableId) {
+    const activeVisits = window.db.getVisits().filter(v => ['seated', 'active'].includes(v.status));
+    const visit = activeVisits.find(v => String(v.table) === String(tableId));
+    
+    if (visit) {
+        // Table is occupied
+        alert(`Mesa ${tableId} Ocupada por ${visit.pax} personas.`);
+    } else {
+        // Table is free, pre-fill Check-In form and switch to Check-In tab
+        switchHostessTab('checkin');
+        const tableInput = document.getElementById('h-table');
+        if (tableInput) tableInput.value = tableId;
+        
+        const nameInput = document.getElementById('h-firstname');
+        if (nameInput) nameInput.focus();
+    }
+};
+
 // === INJECTION SCRIPT FOR SPORTS (FEBRUARY 2026) ===
 // Added securely via frontend console proxy to prevent backend API dependencies
 window.injectFebruaryGames = function () {
@@ -7179,6 +7312,7 @@ window.injectFebruaryGames = function () {
         updatedDaily = true;
       }
     }
+
   });
   if (updatedDaily) window.db._save();
 
