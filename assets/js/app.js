@@ -403,6 +403,7 @@ function renderHostessDashboard() {
                 <input type="text" id="h-lastname" placeholder="APELLIDO PATERNO" class="bg-gray-900 text-white border border-gray-700 rounded p-4 uppercase font-bold text-sm tracking-wide">
                 </div>
                 <input type="text" id="h-lastname2" placeholder="APELLIDO MATERNO (Opcional)" class="bg-gray-900 text-white border border-gray-700 rounded p-4 uppercase font-bold text-sm tracking-wide w-full">
+                <input type="tel" id="h-phone-input" placeholder="TELÉFONO O WHATSAPP (Recomendado)" class="bg-gray-900 text-white border border-gray-700 rounded p-4 font-bold text-sm tracking-wide w-full mt-2">
 
                   <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
                     <div class="flex justify-between items-center">
@@ -5275,6 +5276,7 @@ window.renderHostessDashboard = function () {
             <input type="text" id="h-lastname" placeholder="APELLIDO PATERNO" class="bg-gray-900 text-white border border-gray-700 rounded p-4 uppercase font-bold text-sm tracking-wide">
             </div>
             <input type="text" id="h-lastname2" placeholder="APELLIDO MATERNO (Opcional)" class="bg-gray-900 text-white border border-gray-700 rounded p-4 uppercase font-bold text-sm tracking-wide w-full">
+            <input type="tel" id="h-phone-input" placeholder="TELÉFONO O WHATSAPP (Recomendado)" class="bg-gray-900 text-white border border-gray-700 rounded p-4 font-bold text-sm tracking-wide w-full mt-2">
 
               <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
                 <div class="flex justify-between items-center">
@@ -6450,6 +6452,7 @@ window.processHostessCheckIn = function (tableNumberArg, waiterIdArg) {
   const firstName = document.getElementById('h-firstname').value.toUpperCase();
   const lastName1 = document.getElementById('h-lastname').value.toUpperCase();
   const lastName2 = document.getElementById('h-lastname2') ? document.getElementById('h-lastname2').value.toUpperCase() : '';
+  const phoneInput = document.getElementById('h-phone-input') ? document.getElementById('h-phone-input').value.trim() : '';
 
   // Combine Last Names
   const fullLastName = `${lastName1} ${lastName2}`.trim();
@@ -6473,12 +6476,16 @@ window.processHostessCheckIn = function (tableNumberArg, waiterIdArg) {
     customer = window.db.createCustomer({
       firstName,
       lastName: fullLastName,
-      phone: '',
+      phone: phoneInput,
       email: '',
       branchId
     });
   } else {
     // Update existing if needed (optional, maybe just update last visit)
+    if (phoneInput && !customer.phone) {
+      window.db.updateCustomer(customer.id, { phone: phoneInput });
+      customer.phone = phoneInput;
+    }
   }
 
   // 5. Create Visit
