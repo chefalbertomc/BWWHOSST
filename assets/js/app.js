@@ -5682,6 +5682,10 @@ window.renderHostessDashboard = function () {
       }, 0);
     }
   });
+
+  if (window.renderRestaurantMap) {
+    window.renderRestaurantMap();
+  }
 }
 
 // ===== SECCIÓN 5: VERSIONING + INIT + CACHE =====
