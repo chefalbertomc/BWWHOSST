@@ -427,7 +427,7 @@ function renderHostessDashboard() {
                     <div>
                       <label class="text-[10px] text-gray-500 mb-1 block uppercase">Mesero</label>
                       <select id="h-waiter" class="w-full bg-gray-900 text-white border border-gray-700 rounded p-4 font-bold text-sm h-[62px]">
-                        <option value="">Auto-Asignar</option>
+                        <option value="" disabled selected>Seleccionar Mesero...</option>
                         ${waiters.map(w => `<option value="${w.id}">${w.name}</option>`).join('')}
                       </select>
                     </div>
@@ -5299,7 +5299,7 @@ window.renderHostessDashboard = function () {
                 <div>
                   <label class="text-[10px] text-gray-500 mb-1 block uppercase">Mesero</label>
                   <select id="h-waiter" class="w-full bg-gray-900 text-white border border-gray-700 rounded p-4 font-bold text-sm h-[62px]">
-                    <option value="">Auto-Asignar</option>
+                    <option value="" disabled selected>Seleccionar Mesero...</option>
                     ${window.db.data.users.filter(u => u.role === 'waiter' && (!u.branchId || u.branchId === STATE.branch.id)).map(w => `<option value="${w.id}">${w.name}</option>`).join('')}
                   </select>
                 </div>
