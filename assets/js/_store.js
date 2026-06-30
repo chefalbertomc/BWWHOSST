@@ -745,7 +745,7 @@ class Store {
 
     // --- DATA VERSION ---
     // Increment this to force a reset of localStorage on all devices
-    static DATA_VERSION = 7;
+    static DATA_VERSION = 8;
 
     _load() {
         const stored = localStorage.getItem(STORE_KEY);
@@ -1179,12 +1179,30 @@ class Store {
     _syncUsers() {
         let changed = false;
         INITIAL_DATA.users.forEach(initUser => {
-            if (!this.data.users.find(u => u.username === initUser.username)) {
+            const existingIdx = this.data.users.findIndex(u => u.username === initUser.username);
+            if (existingIdx === -1) {
                 this.data.users.push(initUser);
                 changed = true;
                 console.log('Migrated user:', initUser.username);
+            } else {
+                const existing = this.data.users[existingIdx];
+                if (JSON.stringify(existing) !== JSON.stringify(initUser)) {
+                    this.data.users[existingIdx] = initUser;
+                    changed = true;
+                    console.log('Updated user:', initUser.username);
+                }
             }
         });
+
+        // Remove users that are no longer in INITIAL_DATA
+        const initialUsernames = INITIAL_DATA.users.map(u => u.username);
+        const originalLength = this.data.users.length;
+        this.data.users = this.data.users.filter(u => initialUsernames.includes(u.username));
+        if (this.data.users.length !== originalLength) {
+            changed = true;
+            console.log('Removed obsolete users');
+        }
+
         if (changed) this._save();
     }
 
