@@ -431,18 +431,21 @@ window.MAP_CONFIG = {
   ]
 };
 
-// Add Barra 301-321
+// Add Barra 301-321 in a continuous U-shape
 for(let i = 1; i <= 21; i++) {
   let x, y;
   if(i <= 7) { 
+    // Left side (301-307) top to bottom
     x = 44;
     y = 15 + (i * 4);
   } else if(i <= 14) { 
-    x = 61;
-    y = 15 + ((i - 7) * 4);
-  } else { 
-    x = 45.5 + ((i - 14) * 2);
+    // Bottom side (308-314) left to right
+    x = 46.5 + ((i - 8) * 1.85);
     y = 48;
+  } else { 
+    // Right side (315-321) bottom to top
+    x = 61;
+    y = 43 - ((i - 15) * 4);
   }
   window.MAP_CONFIG.tables.push({
     id: `3${('0'+i).slice(-2)}`,
