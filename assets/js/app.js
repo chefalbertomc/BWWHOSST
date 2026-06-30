@@ -350,42 +350,113 @@ function selectBranch(id, name) {
 
 // ------ HOSTESS ------
 window.MAP_CONFIG = {
-  zones: [
-    {
-      id: 'z-left',
-      name: 'Zona Izquierda (400s)',
-      tables: [
-        { id: '411', cap: 4 }, { id: '412', cap: 4 }, { id: '413', cap: 3 }, { id: '414', cap: 4 }, { id: '415', cap: 4 }, { id: '416', cap: 4 }, { id: '417', cap: 4 },
-        { id: '421', cap: 4 }, { id: '422', cap: 4 }, { id: '423', cap: 3 }, { id: '424', cap: 4 }, { id: '425', cap: 4 }, { id: '426', cap: 4 }
-      ]
-    },
-    {
-      id: 'z-top-right',
-      name: 'Arriba Centro y Derecha (200s)',
-      tables: [
-        { id: '211', cap: 3 }, { id: '212', cap: 6 }, { id: '213', cap: 6 }, { id: '214', cap: 6 },
-        { id: '221', cap: 4 }, { id: '222', cap: 4 }, { id: '223', cap: 4 }, { id: '224', cap: 4 }, { id: '225', cap: 4 },
-        { id: '241', cap: 4 }, { id: '242', cap: 4 }, { id: '243', cap: 3 }, { id: '244', cap: 4 }, { id: '245', cap: 4 },
-        { id: '251', cap: 4 }, { id: '252', cap: 4 }, { id: '253', cap: 4 }, { id: '254', cap: 4 }, { id: '255', cap: 4 }
-      ]
-    },
-    {
-      id: 'z-bottom',
-      name: 'Centro y Abajo (100s, 30s)',
-      tables: [
-        { id: '111', cap: 6 }, { id: '112', cap: 6 }, { id: '113', cap: 6 }, { id: '114', cap: 6 },
-        { id: '121', cap: 3 }, { id: '122', cap: 4 }, { id: '123', cap: 4 }, { id: '124', cap: 3 },
-        { id: '131', cap: 7 }, { id: '133', cap: 10 }, { id: '135', cap: 7 },
-        { id: '132', cap: 8 }, { id: '134', cap: 8 },
-        { id: '32', cap: 3 }, { id: '33', cap: 3 },
-        { id: '141', cap: 3 }, { id: '142', cap: 4 }, { id: '143', cap: 4 }, { id: '144', cap: 2 },
-        { id: '151', cap: 6 }, { id: '152', cap: 6 }, { id: '153', cap: 6 }
-      ]
-    }
+  tables: [
+    // 400s (Izquierda)
+    { id: '411', cap: 4, shape: 'rect', x: 5, y: 35 },
+    { id: '412', cap: 4, shape: 'rect', x: 5, y: 44 },
+    { id: '413', cap: 3, shape: 'rect', x: 5, y: 58 },
+    { id: '414', cap: 4, shape: 'rect', x: 5, y: 65 },
+    { id: '415', cap: 4, shape: 'rect', x: 5, y: 72 },
+    { id: '416', cap: 4, shape: 'rect', x: 5, y: 79 },
+    { id: '417', cap: 4, shape: 'rect', x: 5, y: 86 },
+
+    { id: '421', cap: 4, shape: 'rect', x: 13, y: 35 },
+    { id: '422', cap: 4, shape: 'rect', x: 13, y: 44 },
+    { id: '423', cap: 3, shape: 'rect', x: 13, y: 58 },
+    { id: '424', cap: 4, shape: 'rect', x: 13, y: 65 },
+    { id: '425', cap: 4, shape: 'rect', x: 13, y: 72 },
+    { id: '426', cap: 4, shape: 'rect', x: 13, y: 79 },
+    { id: '427', cap: 4, shape: 'rect', x: 13, y: 86 },
+
+    // 200s Left
+    { id: '213', cap: 6, shape: 'oval', x: 26, y: 15 },
+    { id: '212', cap: 6, shape: 'rect', x: 26, y: 25 },
+    { id: '211', cap: 3, shape: 'rect', x: 26, y: 35 },
+    { id: '214', cap: 6, shape: 'rect', x: 26, y: 45 },
+
+    { id: '221', cap: 4, shape: 'diamond', x: 34, y: 15 },
+    { id: '222', cap: 4, shape: 'diamond', x: 34, y: 25 },
+    { id: '223', cap: 4, shape: 'diamond', x: 34, y: 35 },
+    { id: '224', cap: 4, shape: 'diamond', x: 34, y: 45 },
+
+    // 100s Left
+    { id: '111', cap: 6, shape: 'rect', x: 28, y: 58 },
+    { id: '112', cap: 6, shape: 'rect', x: 28, y: 68 },
+    { id: '113', cap: 6, shape: 'rect', x: 28, y: 78 },
+    { id: '114', cap: 6, shape: 'rect', x: 28, y: 88 },
+
+    { id: '121', cap: 3, shape: 'rect', x: 37, y: 58 },
+    { id: '122', cap: 4, shape: 'rect', x: 37, y: 68 },
+    { id: '123', cap: 4, shape: 'rect', x: 37, y: 78 },
+    { id: '124', cap: 3, shape: 'rect', x: 37, y: 88 },
+
+    // 100s Center
+    { id: '131', cap: 7, shape: 'oval', x: 50, y: 55 },
+    { id: '133', cap: 10, shape: 'oval', x: 58, y: 55 },
+    { id: '135', cap: 7, shape: 'oval', x: 66, y: 55 },
+
+    { id: '132', cap: 8, shape: 'rect', x: 50, y: 65, w: 4.5, h: 2.5 },
+    { id: '134', cap: 8, shape: 'rect', x: 58, y: 65, w: 4.5, h: 2.5 },
+    
+    { id: '32', cap: 3, shape: 'rect', x: 52, y: 75, w: 3, h: 2.5 },
+    { id: '34', cap: 3, shape: 'rect', x: 60, y: 75, w: 3, h: 2.5 },
+
+    // 200s Right
+    { id: '241', cap: 4, shape: 'oval', x: 65, y: 15 },
+    { id: '242', cap: 4, shape: 'oval', x: 65, y: 23 },
+    { id: '243', cap: 3, shape: 'oval', x: 65, y: 31 },
+    { id: '244', cap: 4, shape: 'oval', x: 65, y: 39 },
+    { id: '245', cap: 4, shape: 'oval', x: 65, y: 47 },
+
+    { id: '251', cap: 4, shape: 'rect', x: 74, y: 15 },
+    { id: '252', cap: 4, shape: 'rect', x: 74, y: 23 },
+    { id: '253', cap: 4, shape: 'rect', x: 74, y: 31 },
+    { id: '254', cap: 4, shape: 'rect', x: 74, y: 39 },
+    { id: '255', cap: 4, shape: 'rect', x: 74, y: 47 },
+
+    // 100s Right
+    { id: '141', cap: 3, shape: 'diamond', x: 71, y: 60, angle: -20 },
+    { id: '142', cap: 4, shape: 'diamond', x: 71, y: 69, angle: -20 },
+    { id: '143', cap: 4, shape: 'rect', x: 72, y: 78 },
+    { id: '144', cap: 2, shape: 'rect', x: 72, y: 87 },
+
+    { id: '151', cap: 6, shape: 'rect', x: 81, y: 60 },
+    { id: '152', cap: 6, shape: 'rect', x: 81, y: 72 },
+    { id: '153', cap: 6, shape: 'rect', x: 81, y: 84 },
+  ],
+  labels: [
+    { text: 'FUTBOLITO', x: 9, y: 52 },
+    { text: 'HOST', x: 55, y: 83 },
+    { text: 'CAJA', x: 88, y: 92 }
   ]
 };
+
+// Add Barra 301-321
+for(let i = 1; i <= 21; i++) {
+  let x, y;
+  if(i <= 7) { 
+    x = 44;
+    y = 15 + (i * 4);
+  } else if(i <= 14) { 
+    x = 61;
+    y = 15 + ((i - 7) * 4);
+  } else { 
+    x = 45.5 + ((i - 14) * 2);
+    y = 48;
+  }
+  window.MAP_CONFIG.tables.push({
+    id: `3${('0'+i).slice(-2)}`,
+    cap: 1,
+    shape: 'oval',
+    x: x,
+    y: y,
+    w: 2,
+    h: 2
+  });
+}
+
 window.calculateTotalChairs = function() {
-  return window.MAP_CONFIG.zones.reduce((sum, z) => sum + z.tables.reduce((s, t) => s + t.cap, 0), 0);
+  return window.MAP_CONFIG.tables.reduce((s, t) => s + t.cap, 0);
 };
 
 function renderHostessDashboard() {
@@ -7201,41 +7272,66 @@ window.renderRestaurantMap = function() {
   if (!container) return;
 
   const activeVisits = window.db.getVisits().filter(v => ['seated', 'active'].includes(v.status));
-  
   let occupiedChairs = 0;
   let totalChairs = window.calculateTotalChairs();
   
-  let html = `<div style="display: flex; gap: 15px; min-width: 900px; flex-wrap: nowrap;">`;
+  let html = `<div style="position: relative; width: 100%; min-width: 800px; aspect-ratio: 10 / 9; background: #0a0a0a; border-radius: 12px; border: 1px solid #333; overflow: hidden; font-family: 'Inter', sans-serif;">`;
   
-  window.MAP_CONFIG.zones.forEach(zone => {
-    html += `<div style="background: #0a0a0a; padding: 15px; border-radius: 12px; border: 1px solid #333; flex: 1; min-width: 200px;">`;
-    html += `<h3 style="color: #888; font-size: 11px; margin-bottom: 12px; text-transform: uppercase; text-align: center; letter-spacing: 1px;">${zone.name}</h3>`;
-    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 8px;">`;
-    
-    zone.tables.forEach(table => {
-      const visit = activeVisits.find(v => String(v.table) === String(table.id));
-      
-      let isOccupied = !!visit;
-      let pax = visit ? parseInt(visit.pax || 0) : 0;
-      if (isOccupied) {
-        occupiedChairs += pax;
-      }
-      
-      const bgColor = isOccupied ? 'bg-red-900/40' : 'bg-green-900/40';
-      const borderColor = isOccupied ? 'border-red-500' : 'border-green-500';
-      const textColor = isOccupied ? 'text-red-400' : 'text-green-400';
-      const statusText = isOccupied ? `${pax}/${table.cap}` : `${table.cap} lbrs`;
-      
-      html += `
-        <div class="${bgColor} ${borderColor} border-2 rounded-lg p-2 text-center cursor-pointer transition-transform hover:scale-105 shadow-sm"
-             onclick="handleMapTableClick('${table.id}')">
-          <div style="font-size: 15px; font-weight: 900; color: #fff; line-height: 1;">${table.id}</div>
-          <div class="${textColor}" style="font-size: 10px; font-weight: bold; margin-top: 4px;">${statusText}</div>
-        </div>
-      `;
+  // Render labels
+  if (window.MAP_CONFIG.labels) {
+    window.MAP_CONFIG.labels.forEach(lbl => {
+      html += `<div style="position: absolute; left: ${lbl.x}%; top: ${lbl.y}%; transform: translate(-50%, -50%) scale(${lbl.scale || 1}); color: #333; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; pointer-events: none; white-space: nowrap; font-size: 18px;">${lbl.text}</div>`;
     });
+  }
+
+  // Render tables
+  window.MAP_CONFIG.tables.forEach(table => {
+    const visit = activeVisits.find(v => String(v.table) === String(table.id));
+    let isOccupied = !!visit;
+    let pax = visit ? parseInt(visit.pax || 0) : 0;
+    if (isOccupied) occupiedChairs += pax;
     
-    html += `</div></div>`;
+    const bgColor = isOccupied ? 'rgba(127, 29, 29, 0.4)' : 'rgba(20, 83, 45, 0.4)';
+    const borderColor = isOccupied ? '#ef4444' : '#22c55e';
+    const textColor = isOccupied ? '#fca5a5' : '#86efac';
+    const statusText = isOccupied ? `${pax}/${table.cap}` : `${table.cap} lbr`;
+    
+    let br = '4px';
+    if (table.shape === 'oval') br = '50%';
+    
+    let transform = 'translate(-50%, -50%)';
+    if (table.angle) {
+      transform += ` rotate(${table.angle}deg)`;
+    } else if (table.shape === 'diamond') {
+      transform += ` rotate(45deg)`;
+    }
+    
+    const w = (table.w || 3.5) + '%';
+    const h = (table.h || 3.5) + '%';
+    
+    const fontSizeId = table.w === 2 ? '9px' : '13px';
+    const fontSizeStatus = table.w === 2 ? '6px' : '9px';
+    const hideStatus = table.w === 2 ? 'display: none;' : '';
+    
+    let textTransform = 'none';
+    if (table.shape === 'diamond') textTransform = 'rotate(-45deg)';
+    else if (table.angle) textTransform = `rotate(${-table.angle}deg)`;
+    
+    html += `
+      <div onclick="handleMapTableClick('${table.id}')"
+           style="position: absolute; left: ${table.x}%; top: ${table.y}%; width: ${w}; height: ${h}; 
+                  background: ${bgColor}; border: 1.5px solid ${borderColor}; border-radius: ${br}; 
+                  transform: ${transform}; cursor: pointer; display: flex; flex-direction: column; 
+                  align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+                  transition: transform 0.2s, background 0.2s; z-index: 10;"
+           onmouseover="this.style.transform='${transform} scale(1.1)'"
+           onmouseout="this.style.transform='${transform}'">
+        <div style="transform: ${textTransform}; display: flex; flex-direction: column; align-items: center;">
+            <div style="font-size: ${fontSizeId}; font-weight: 900; color: #fff; line-height: 1;">${table.id}</div>
+            <div style="color: ${textColor}; font-size: ${fontSizeStatus}; font-weight: bold; margin-top: 2px; line-height: 1; ${hideStatus}">${statusText}</div>
+        </div>
+      </div>
+    `;
   });
   
   html += `</div>`;
