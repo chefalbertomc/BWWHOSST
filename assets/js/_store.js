@@ -458,14 +458,16 @@ const INITIAL_DATA = {
         { id: 'hp1', username: 'hosspaseo', password: '123', role: 'hostess', name: 'Hostess Paseo', branchId: 'paseo' },
 
         // JURIQUILLA - Meseros activos
-        { id: 'wj1', username: '1060', password: '1977', role: 'waiter', name: 'Alejandro Ortiz Martínez', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj3', username: '1033', password: '63313', role: 'waiter', name: 'Santiago Pacheco Ferreiro', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj4', username: 'jessica.ortiz', password: '123', role: 'waiter', name: 'Jessica Ortiz Hernández', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj7', username: '10421', password: '1170', role: 'waiter', name: 'Isaac Bravo Olvera', position: 'SERVER', branchId: 'juriquilla' },
         { id: 'wj_axel', username: 'axel', password: '123', role: 'waiter', name: 'Axel Gutiérrez', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_alexis', username: 'alexis', password: '123', role: 'waiter', name: 'Alexis Sanchez', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_giovanni', username: 'giovanni', password: '123', role: 'waiter', name: 'Giovanni', position: 'SERVER', branchId: 'juriquilla' },
         { id: 'wj_andres', username: 'andres', password: '123', role: 'waiter', name: 'Andrés Ayala', position: 'SERVER', branchId: 'juriquilla' },
-        { id: 'wj_octavio', username: 'octavio', password: '123', role: 'waiter', name: 'Octavio Becerra', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj4', username: 'jessica.ortiz', password: '123', role: 'waiter', name: 'Jessica Hdez', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj1', username: '1060', password: '1977', role: 'waiter', name: 'Alejandro Ortiz', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_ximena', username: 'ximena', password: '123', role: 'waiter', name: 'Ximena Garcia', position: 'SERVER', branchId: 'juriquilla' },
         { id: 'wj9_barra', username: 'barra', password: '031', role: 'waiter', name: 'Barra', position: 'BARRA', branchId: 'juriquilla' },
+        { id: 'wj_jaime', username: 'jaime', password: '123', role: 'waiter', name: 'Jaime', position: 'SERVER', branchId: 'juriquilla' },
+        { id: 'wj_brenda', username: 'brenda', password: '123', role: 'waiter', name: 'Brenda', position: 'SERVER', branchId: 'juriquilla' },
 
         // ALAMOS - Meseros (11): 9 servers, 2 barra
         { id: 'wa1', username: 'veronica.camacho', password: '123', role: 'waiter', name: 'Verónica Camacho de Santiago', position: 'SERVER', branchId: 'alamos' },
