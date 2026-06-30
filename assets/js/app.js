@@ -7369,8 +7369,15 @@ window.handleMapTableClick = function(tableId) {
     const visit = activeVisits.find(v => String(v.table) === String(tableId));
     
     if (visit) {
-        // Table is occupied
-        alert(`Mesa ${tableId} Ocupada por ${visit.pax} personas.`);
+        // Table is occupied, switch to Tables tab and open editor
+        switchHostessTab('tables');
+        setTimeout(() => {
+            const editPanel = document.getElementById('edit-visit-' + visit.id);
+            if (editPanel) {
+                editPanel.classList.remove('hidden');
+                editPanel.scrollIntoView({behavior: "smooth", block: "center"});
+            }
+        }, 100);
     } else {
         // Table is free, pre-fill Check-In form and switch to Check-In tab
         switchHostessTab('checkin');
