@@ -5445,6 +5445,11 @@ window.renderHostessDashboard = function () {
             </div>
           </div>
 
+          <!-- Search Active Customers -->
+          <div class="mb-4">
+            <input type="text" id="hostess-tables-search" placeholder="🔍 Buscar cliente o mesa..." onkeyup="window.filterActiveVisits(this.value)" class="w-full bg-gray-900 text-white p-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-yellow-500 outline-none transition text-lg">
+          </div>
+
           <!-- Filter / Waiter Tables Inline Toggle -->
           <div class="mb-4">
             <button onclick="window.toggleWaiterTablesInline()" class="w-full bg-gray-800 hover:bg-gray-700 border-2 border-gray-700 rounded-lg p-3 text-white font-bold transition flex items-center justify-center gap-2">
@@ -5472,7 +5477,7 @@ window.renderHostessDashboard = function () {
 
     const custName = v.customer ? (v.customer.firstName + ' ' + (v.customer.lastName || '')).trim() : (v.customerName || 'Cliente');
     return `
-              <div class="table-card bg-gray-900 border-l-4 border-green-500 rounded-r-xl p-4 shadow-lg relative animate-fade-in" data-waiter-id="${v.waiterId}">
+              <div class="table-card active-visit-card bg-gray-900 border-l-4 border-green-500 rounded-r-xl p-4 shadow-lg relative animate-fade-in" data-waiter-id="${v.waiterId}" data-search-text="${custName.toLowerCase()} ${v.table} ${v.pax}">
                 <div class="flex justify-between items-start mb-2">
                     <div>
                         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">Mesa</span><span class="text-3xl font-black text-white shadow-text leading-none">${v.table}</span>
@@ -7268,6 +7273,19 @@ window.renderManagerSportsCRMTab = function (container) {
       </div>
     </div>
   `;
+};
+
+window.filterActiveVisits = function(query) {
+  const filter = query.toLowerCase().trim();
+  const cards = document.querySelectorAll('.active-visit-card');
+  cards.forEach(card => {
+    const searchText = card.getAttribute('data-search-text') || '';
+    if (searchText.includes(filter)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 };
 
 window.renderRestaurantMap = function() {
